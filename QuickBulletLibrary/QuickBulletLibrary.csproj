@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Blocks\Extras\ConditionDoesNotContains.cs" />
+    <Compile Remove="Models\Blocks\Extras\ConditionDoesNotEqual.cs" />
+    <Compile Remove="Models\Blocks\Extras\ConditionExist.cs" />
+    <Compile Remove="Models\CheckerOutput.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="1.0.0-alpha-844" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+</Project>
