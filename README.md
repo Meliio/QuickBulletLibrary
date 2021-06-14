@@ -14,8 +14,9 @@
       {
          "block":"request",
          "url":"https://api.ipify.org?format=json",
-         "contentType":"",
          "methode":"get",
+         "data":"",
+         "contentType":"",
          "headers":[
 
          ],
