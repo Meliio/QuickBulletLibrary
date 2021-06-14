@@ -14,7 +14,7 @@
       {
          "block":"request",
          "url":"https://api.ipify.org?format=json",
-         "methode":"get",
+         "method":"get",
          "data":"",
          "contentType":"",
          "headers":[
@@ -32,7 +32,7 @@
          "prefix":"",
          "suffix":"",
          "source":"{request.Content}",
-         "methode":"json",
+         "method":"json",
          "firstInput":"ip",
          "secondInput":"",
          "addToOutput":true,
