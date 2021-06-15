@@ -17,7 +17,7 @@ namespace QuickBulletLibrary.Blocks
         {
             _parse = parse;
 
-            switch (_parse.Methode.ToLower())
+            switch (_parse.Method.ToLower())
             {
                 case "between":
                     _parseProcess = new ParseBetween();
