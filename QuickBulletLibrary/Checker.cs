@@ -120,11 +120,6 @@ namespace QuickBulletLibrary
                         string outputPath = PathBuilder(new string[] { _checkerSettings.OutputDirectory, _configSettings.Name, botData.Status.ToString() }, "txt");
                         string output = OutputBuilder(botData);
 
-                        //while (!await AppendToFile(outputPath, output))
-                        //{
-                        //    await Task.Delay(100);
-                        //}
-
                         await AppendToFile(outputPath, output);
 
                         switch (botData.Status)
