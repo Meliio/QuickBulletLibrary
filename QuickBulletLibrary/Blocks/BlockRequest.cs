@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace QuickBulletLibrary.Blocks
 {
@@ -31,8 +32,8 @@ namespace QuickBulletLibrary.Blocks
 
             var method = new HttpMethod(_request.Method);
 
-            string uriString = ReplaceValues(_request.Url, botData);
-            var uri = new Uri(uriString);
+            string url = ReplaceValues(_request.Url, botData);
+            var uri = new Uri(url);
 
             using var httpRequestMessage = new HttpRequestMessage(method, uri);
 
@@ -44,11 +45,11 @@ namespace QuickBulletLibrary.Blocks
 
             foreach (var header in _request.Headers)
             {
-                var headerSplit = header.Split(SPLIT_SEPARATOR, SPLIT_COUNT, StringSplitOptions.RemoveEmptyEntries);
+                var headerSplit = header.Split(SPLIT_SEPARATOR, SPLIT_COUNT);
                 if (headerSplit.Length == SPLIT_COUNT)
                 {
                     string headerName = ReplaceValues(headerSplit[0], botData);
-                    string headerValue = ReplaceValues(headerSplit[1], botData);
+                    string headerValue = ReplaceValues(headerSplit[1].TrimStart(), botData);
                     httpRequestMessage.Headers.TryAddWithoutValidation(headerName, headerValue);
                 }
             }
@@ -57,12 +58,12 @@ namespace QuickBulletLibrary.Blocks
 
             foreach (var cookie in _request.Cookies)
             {
-                var cookieSplit = cookie.Split(SPLIT_SEPARATOR, SPLIT_COUNT, StringSplitOptions.RemoveEmptyEntries);
+                var cookieSplit = cookie.Split(SPLIT_SEPARATOR, SPLIT_COUNT);
 
                 if (cookieSplit.Length == SPLIT_COUNT)
                 {
                     string cookieName = ReplaceValues(cookieSplit[0], botData);
-                    string cookieValue = ReplaceValues(cookieSplit[1], botData);
+                    string cookieValue = ReplaceValues(cookieSplit[1].TrimStart(), botData);
                     if (cookiesDictionary.TryAdd(cookieName, cookieValue))
                     {
                         continue;
@@ -84,7 +85,7 @@ namespace QuickBulletLibrary.Blocks
             SetHeaderAndCookiesResponseInBotData(ref botData, response.Headers);
             if (_request.LoadContent)
             {
-                botData.Request.Content = await response.Content.ReadAsStringAsync();
+                botData.Request.Content = HttpUtility.HtmlDecode(await response.Content.ReadAsStringAsync());
             }
         }
 
