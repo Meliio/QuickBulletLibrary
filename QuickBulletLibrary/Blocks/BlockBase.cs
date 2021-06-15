@@ -21,16 +21,14 @@ namespace QuickBulletLibrary.Blocks
 
         protected string ReplaceValues(string input, BotData botData)
         {
-            input = input.Trim().ToLower();
-
             var matches = _regex.Matches(input);
 
             foreach (Match match in matches)
             {
-                switch (match.Groups[1].Value)
+                switch (match.Groups[1].Value.ToLower())
                 {
                     case "input":
-                        switch (match.Groups[2].Value)
+                        switch (match.Groups[2].Value.ToLower())
                         {
                             case "raw":
                                 input = input.Replace(match.Value, botData.Input.Raw);
@@ -44,7 +42,7 @@ namespace QuickBulletLibrary.Blocks
                         }
                         break;
                     case "request":
-                        switch (match.Groups[2].Value)
+                        switch (match.Groups[2].Value.ToLower())
                         {
                             case "statuscode":
                                 input = input.Replace(match.Value, botData.Request.StatusCode);
@@ -70,7 +68,7 @@ namespace QuickBulletLibrary.Blocks
                         }
                         break;
                     case "bot":
-                        switch (match.Groups[2].Value)
+                        switch (match.Groups[2].Value.ToLower())
                         {
                             case "status":
                                 input = input.Replace(match.Value, botData.Status.ToString());
